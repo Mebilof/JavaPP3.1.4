@@ -1,9 +1,10 @@
-package project.service;
+package com.project.PP311.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.dao.UserDao;
-import project.model.User;
+import com.project.PP311.dao.UserDao;
+import com.project.PP311.model.User;
 
 import java.util.List;
 
@@ -18,29 +19,27 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getListUsers(){
-        return userDao.getListUsers();
+        return userDao.findAll();
     }
 
     @Override
     public User getUser(long id) {
-        return userDao.getUser(id);
+        return userDao.getById(id);
     }
 
     @Transactional
     @Override
     public void addUser(User user){
-        userDao.addUser(user);
+        userDao.save(user);
     }
 
     @Transactional
     @Override
     public void updateUser(User newUser){
-        userDao.updateUser(newUser);
+        userDao.save(newUser);
     }
 
     @Transactional
     @Override
-    public void deleteUser(long id){
-        userDao.deleteUser(id);
-    }
+    public void deleteUser(long id){ userDao.delete(getUser(id)); }
 }

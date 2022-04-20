@@ -1,6 +1,6 @@
-package project.service;
+package com.project.PP311.service;
 
-import project.model.User;
+import com.project.PP311.model.User;
 
 import java.util.List;
 

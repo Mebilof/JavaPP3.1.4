@@ -1,4 +1,4 @@
-package project.model;
+package com.project.PP311.model;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -18,13 +18,13 @@ public class User {
     private String model;
 
     @Column
-    private int year;
+    private String year;
 
     public User(){
 
     }
 
-    public User(String name, String model, int year) {
+    public User(String name, String model, String year) {
         this.name = name;
         this.model = model;
         this.year = year;
@@ -54,11 +54,11 @@ public class User {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

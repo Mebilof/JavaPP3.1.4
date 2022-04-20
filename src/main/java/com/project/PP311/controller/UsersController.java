@@ -1,10 +1,10 @@
-package project.controller;
+package com.project.PP311.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import project.model.User;
-import project.service.UserService;
+import com.project.PP311.model.User;
+import com.project.PP311.service.UserService;
 
 @Controller
 @RequestMapping("/users")
