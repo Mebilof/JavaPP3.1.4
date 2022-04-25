@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title th:text="${user.getOwner()}"/>
+    <meta charset="UTF-8">
+    <title>User</title>
 </head>
 <body>
-<h2 th:text="${user.getCar()}"/>
-<h2 th:text="${user.getYear()}"/>
-<h2 th:text="${user.getCar()}"/>
-<h2 th:each="role: ${user.getRoles()}"/>
-<h2 th:text="role.getRole()"/>
-<table>
-    <thead>
-    <tr>
-        <th> Role </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="role : ${user.getRoles()}">
-        <td><span th:text="${role.getRole()}"> Title </span></td>
-    </tr>
-    </tbody>
-</table>
-<a th:href="@{/logout}">Logout</a>
-
-
+<div th:object="${user}">
+    <p style="font-size:18px" th:text="${user.getId()}">id</p>
+    <p style="font-size:18px" th:text="${user.getOwner()}">username</p>
+    <p style="font-size:18px" th:text="${user.getCar()}">car</p>
+    <a style="font-size:18px" th:href="@{/}"><button style="font-size:18px">Home</button></a>
+</div>
 </body>
 </html>

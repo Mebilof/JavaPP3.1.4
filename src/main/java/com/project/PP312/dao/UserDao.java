@@ -1,10 +1,11 @@
-package com.project.PP311.service;
+package com.project.PP312.dao;
 
-import com.project.PP311.model.User;
+import com.project.PP312.model.User;
 
 import java.util.List;
 
-public interface UserService {
+
+public interface UserDao {
     List<User> getListUsers();
     User getUserById(long id);
     User getUserByName(String email);

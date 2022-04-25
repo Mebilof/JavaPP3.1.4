@@ -1,7 +1,7 @@
-package com.project.PP311.controller;
+package com.project.PP312.controller;
 
-import com.project.PP311.model.User;
-import com.project.PP311.service.UserService;
+import com.project.PP312.model.User;
+import com.project.PP312.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;

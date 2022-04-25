@@ -1,6 +1,6 @@
-package com.project.PP311.configs;
+package com.project.PP312.configs;
 
-import com.project.PP311.service.UserServiceImpl;
+import com.project.PP312.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/user/**").access("hasAnyRole('ADMIN', 'USER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successHandler)

@@ -1,6 +1,6 @@
-package com.project.PP311.service;
+package com.project.PP312.service;
 
-import com.project.PP311.model.Role;
+import com.project.PP312.model.Role;
 
 public interface RoleService {
     void addRole(Role role);

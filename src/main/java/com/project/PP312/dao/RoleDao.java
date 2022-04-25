@@ -1,6 +1,6 @@
-package com.project.PP311.dao;
+package com.project.PP312.dao;
 
-import com.project.PP311.model.Role;
+import com.project.PP312.model.Role;
 
 public interface RoleDao {
     void addRole(Role role);

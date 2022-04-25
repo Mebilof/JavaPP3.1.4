@@ -1,6 +1,5 @@
-package com.project.PP311.service;
+package com.project.PP312.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.project.PP311.dao.UserDao;
-import com.project.PP311.model.User;
+import com.project.PP312.dao.UserDao;
+import com.project.PP312.model.User;
 
 import java.util.List;
 

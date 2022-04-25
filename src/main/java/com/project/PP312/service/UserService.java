@@ -1,13 +1,10 @@
-package com.project.PP311.dao;
+package com.project.PP312.service;
 
-import com.project.PP311.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.project.PP312.model.User;
 
 import java.util.List;
 
-
-public interface UserDao {
+public interface UserService {
     List<User> getListUsers();
     User getUserById(long id);
     User getUserByName(String email);

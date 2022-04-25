@@ -1,4 +1,4 @@
-package com.project.PP311.configs;
+package com.project.PP312.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "com.project.PP311")
+@ComponentScan(value = "com.project.PP312")
 public class HibernateConfig {
 
     @Autowired
@@ -32,7 +32,7 @@ public class HibernateConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.project.PP311");
+        em.setPackagesToScan("com.project.PP312");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

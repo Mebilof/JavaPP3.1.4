@@ -1,4 +1,4 @@
-package com.project.PP311.configs;
+package com.project.PP312.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

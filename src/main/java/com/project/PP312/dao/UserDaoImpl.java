@@ -1,6 +1,6 @@
-package com.project.PP311.dao;
+package com.project.PP312.dao;
 
-import com.project.PP311.model.User;
+import com.project.PP312.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

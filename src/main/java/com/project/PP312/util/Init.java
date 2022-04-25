@@ -1,9 +1,9 @@
-package com.project.PP311.util;
+package com.project.PP312.util;
 
-import com.project.PP311.model.Role;
-import com.project.PP311.model.User;
-import com.project.PP311.service.RoleService;
-import com.project.PP311.service.UserService;
+import com.project.PP312.model.Role;
+import com.project.PP312.model.User;
+import com.project.PP312.service.RoleService;
+import com.project.PP312.service.UserService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +26,6 @@ public class Init {
         roleService.addRole(role);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        userService.addUser(new User("Michael", "Trans Am", "2004", "admin", roles));
+        userService.addUser(new User("Michael", "White Sebring", "2004", "admin", roles));
     }
 }
