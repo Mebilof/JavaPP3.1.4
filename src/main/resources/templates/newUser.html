@@ -6,18 +6,22 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/users/new}" th:object="${user}">
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+<form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+    <label for="owner">Name: </label>
+    <input type="text" th:field="*{owner}" id="owner"/>
     <br/>
-    <label for="model">Model: </label>
-    <input type="text" th:field="*{model}" id="model"/>
+    <label for="car">Car: </label>
+    <input type="text" th:field="*{car}" id="car"/>
     <br/>
     <label for="year">Year: </label>
     <input type="text" th:field="*{year}" id="year"/>
     <br/>
+    <label for="password">Password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+
     <input type="submit" value="Create"/>
 </form>
-
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>

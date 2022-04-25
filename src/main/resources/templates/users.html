@@ -15,14 +15,15 @@
     </thead>
     <tbody>
     <tr th:each="user: ${users}">
-        <td th:text="${user.name}"/>
-        <td th:text="${user.model}"/>
+        <td th:text="${user.owner}"/>
+        <td th:text="${user.car}"/>
         <td th:text="${user.year}"/>
-                <td> <a th:href="@{/users/{id}/edit(id=${user.getId()})}"/>Edit</td>
-                <td> <a th:href="@{/users/{id}/delete(id=${user.getId()})}"/>Delete</td>
+        <td> <a th:href="@{/admin/{id}/edit(id=${user.getId()})}"/>Edit</td>
+        <td> <a th:href="@{/admin/{id}/delete(id=${user.getId()})}"/>Delete</td>
     </tr>
     </tbody>
 </table>
-<a th:href="@{/users/new}">New user</a>
+<a th:href="@{/admin/new}">New user</a>
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>
