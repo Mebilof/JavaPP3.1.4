@@ -26,6 +26,6 @@ public class Init {
         roleService.addRole(role);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        userService.addUser(new User("Michael", "White Sebring", "2004", "admin", roles));
+        userService.addUser(new User("1", "White Sebring", "2004", "1", roles));
     }
 }
