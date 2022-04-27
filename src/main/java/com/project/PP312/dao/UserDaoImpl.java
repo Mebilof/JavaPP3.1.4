@@ -1,6 +1,7 @@
 package com.project.PP312.dao;
 
 import com.project.PP312.model.User;
+import com.project.PP312.service.RoleService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,12 @@ public class UserDaoImpl implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
 
+    private RoleService roleService;
+
+    public UserDaoImpl(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     @Override
     public List<User> getListUsers() {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
@@ -25,24 +32,21 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUserByName(String firstname) {
-        return entityManager.createQuery("select u from User u where u.owner = :firstname", User.class)
-                .setParameter("firstname", firstname).getSingleResult();
+    public User getUserByName(String owner) {
+        return entityManager.createQuery("select u from User u where u.owner = :owner", User.class)
+                .setParameter("owner", owner).getSingleResult();
     }
 
-    @Transactional
     @Override
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
-    @Transactional
     @Override
     public void updateUser(User newUser) {
         entityManager.merge(newUser);
     }
 
-    @Transactional
     @Override
     public void deleteUser(long id) {
         entityManager.remove(getUserById(id));

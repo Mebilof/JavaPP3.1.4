@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserByName(String name) {
-        return userDao.getUserByName(name);
+    public User getUserByName(String owner) {
+        return userDao.getUserByName(owner);
     }
 
     @Transactional
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        return userDao.getUserByName(name);
+    public UserDetails loadUserByUsername(String owner) throws UsernameNotFoundException {
+        return userDao.getUserByName(owner);
     }
 }

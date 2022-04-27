@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @ModelAttribute("auth")
-    public UserDetails authUser(Principal principal) {
+        public UserDetails authUser(Principal principal) {
         return userDetailsService.loadUserByUsername(principal.getName());
     }
 }

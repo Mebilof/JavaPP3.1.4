@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao{
@@ -13,10 +14,16 @@ public class RoleDaoImpl implements RoleDao{
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
+    @Override
+    public List<Role> getListRoles() {
+        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
+    }
+
     @Override
     public void addRole(Role role) {
-        entityManager.persist(role);
+        if (getRoleByName(role) == null) {
+            entityManager.persist(role);
+        }
     }
 
     @Override
