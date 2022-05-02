@@ -9,29 +9,32 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class RoleDaoImpl implements RoleDao{
+public class RoleDaoImpl implements RoleDao {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
-    @Override
-    public List<Role> getListRoles() {
-        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
+    public RoleDaoImpl(EntityManager em) {
+        this.em = em;
     }
 
     @Override
-    public void addRole(Role role) {
-        if (getRoleByName(role) == null) {
-            entityManager.persist(role);
-        }
-    }
-
-    @Override
-    public Role getRoleByName(Role role) {
-        return entityManager.createQuery("select r from Role r", Role.class)
+    public Role getRoleByName(String name) {
+        return em.createQuery("select r from Role r", Role.class)
                 .getResultStream()
-                .filter(name -> name.getRole().equals(role.getRole()))
+                .filter(role -> role.getName().equals(name))
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public void save(Role role) {
+        em.persist(role);
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return em.createQuery("select r from Role r", Role.class)
+                .getResultList();
     }
 }

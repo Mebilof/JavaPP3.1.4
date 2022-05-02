@@ -5,7 +5,7 @@ import com.project.PP312.model.Role;
 import java.util.List;
 
 public interface RoleDao {
-    List<Role> getListRoles();
-    void addRole(Role role);
-    Role getRoleByName(Role role);
+    Role getRoleByName(String name);
+    void save(Role role);
+    List<Role> getAllRoles();
 }

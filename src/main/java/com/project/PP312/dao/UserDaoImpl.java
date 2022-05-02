@@ -10,45 +10,46 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
-    private RoleService roleService;
-
-    public UserDaoImpl(RoleService roleService) {
-        this.roleService = roleService;
+    public UserDaoImpl(EntityManager em) {
+        this.em = em;
     }
 
     @Override
-    public List<User> getListUsers() {
-        return entityManager.createQuery("select u from User u", User.class).getResultList();
+    public void save(User user) {
+        em.persist(user);
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return em.createQuery("select u from User u", User.class)
+                .getResultList();
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return getAllUsers().stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findAny()
+                .orElse(null);
+    }
+
     @Override
     public User getUserById(long id) {
-        return entityManager.createQuery("select u from User u where u.id = :id", User.class)
-                .setParameter("id", id).getSingleResult();
+        return em.find(User.class, id);
     }
 
     @Override
-    public User getUserByName(String owner) {
-        return entityManager.createQuery("select u from User u where u.owner = :owner", User.class)
-                .setParameter("owner", owner).getSingleResult();
+    public void update(User user) {
+        em.merge(user);
     }
 
     @Override
-    public void addUser(User user) {
-        entityManager.persist(user);
-    }
-
-    @Override
-    public void updateUser(User newUser) {
-        entityManager.merge(newUser);
-    }
-
-    @Override
-    public void deleteUser(long id) {
-        entityManager.remove(getUserById(id));
+    public void deleteById(long id) {
+        em.remove(em.find(User.class, id));
     }
 }

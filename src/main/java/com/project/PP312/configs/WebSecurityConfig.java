@@ -3,6 +3,7 @@ package com.project.PP312.configs;
 import com.project.PP312.service.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,53 +11,58 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserServiceImpl userServiceImpl;
     private final SuccessHandler successHandler;
+    private final UserServiceImpl userService;
 
-    public WebSecurityConfig(UserServiceImpl userServiceImpl, SuccessHandler successUserHandler) {
-        this.userServiceImpl = userServiceImpl;
-        this.successHandler = successUserHandler;
+    public WebSecurityConfig(SuccessHandler successHandler,
+                             UserServiceImpl userService) {
+
+        this.successHandler = successHandler;
+        this.userService = userService;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                .anyRequest().authenticated()
+                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+
                 .and()
-                .formLogin()
-                .loginPage("/login")
+                .formLogin().loginPage("/")
                 .successHandler(successHandler)
-                .permitAll()
+
                 .and()
                 .logout()
-                .permitAll();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+                .logoutSuccessUrl("/");
     }
 
     @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
-
-    @Bean
-    protected DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userServiceImpl);
-        return daoAuthenticationProvider;
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }

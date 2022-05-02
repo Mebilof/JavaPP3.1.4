@@ -17,35 +17,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String owner;
-
-    @Column
-    private String car;
-
-    @Column
-    private String year;
-
-    @Column
+    @Column(unique = true)
+    private String username;
     private String password;
+    private String rolesList;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
     private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String owner, String car, String year, String password, Set<Role> roles) {
-        this.owner = owner;
-        this.car = car;
-        this.year = year;
+    public User(String username, String password) {
+        this(username, password, "ROLE_USER");
+    }
+
+    public User(String username, String password, String rolesList) {
+        this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.rolesList = rolesList;
     }
 
     public Long getId() {
@@ -56,34 +46,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String firstName) {
-        this.owner = firstName;
-    }
-
-    public String getCar() {
-        return car;
-    }
-
-    public void setCar(String lastName) {
-        this.car = lastName;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String email) {
-        this.year = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -92,9 +54,25 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getRolesList() {
+        return rolesList;
+    }
+
+    public void setRolesList(String rolesList) {
+        this.rolesList = rolesList;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return getRoles();
     }
 
     @Override
@@ -104,7 +82,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.owner;
+        return username;
     }
 
     @Override
@@ -125,29 +103,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                ", firstName='" + owner + '\'' +
-                ", lastName='" + car + '\'' +
-                ", email='" + year + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(owner, user.owner) && Objects.equals(car, user.car) && Objects.equals(year, user.year) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(owner, car, year, password, roles);
     }
 }

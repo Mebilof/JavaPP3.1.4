@@ -5,10 +5,10 @@ import com.project.PP312.model.User;
 import java.util.List;
 
 public interface UserService {
-    List<User> getListUsers();
+    User getUserByUsername(String username);
+    Iterable<User> getAllUsers();
+    void save(User user);
+    void update(User user);
+    void deleteById(long id);
     User getUserById(long id);
-    User getUserByName(String email);
-    void addUser(User user);
-    void updateUser(User newUser);
-    void deleteUser(long id);
 }
